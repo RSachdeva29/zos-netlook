@@ -1,0 +1,27 @@
+)ATTR DEFAULT(%+_)
+ $ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) PAD('_')
+ # TYPE(TEXT)  INTENS(LOW)  COLOR(TURQ)
+ ! TYPE(TEXT)  INTENS(HIGH) COLOR(GREEN)
+)BODY
+%------------------------- NETLOOK - Connection Lookup -----------------
+%Command ===>_ZCMD
++
++  Lookup type%===>$Z   +   IP, PORT, HOST or JOB
++  Value      %===>$NLVALUE
+#                  IP address, port number, host name, or job/STC name
++  LPAR       %===>$Z       +  Optional - blank = every LPAR
++
++  Examples:%IP  +10.10.1.20            %PORT+8443
++           %HOST+app.example.com       %JOB +CICSPRD1
++
++  Press%ENTER+to look up,%PF3+to return to the menu.
+#  NETLOOK only issues DISPLAY commands - nothing is changed.
+)INIT
+ .ZVARS = '(NLTYPE NLLPAR)'
+ .CURSOR = NLVALUE
+ &ZCMD = ' '
+)PROC
+ &NLTYPE = UPPER(NLTYPE)
+ VER (&NLTYPE,NB,LIST,IP,PORT,HOST,JOB)
+ VER (&NLVALUE,NB)
+)END

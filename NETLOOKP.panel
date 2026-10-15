@@ -1,0 +1,23 @@
+)ATTR DEFAULT(%+_)
+ $ TYPE(INPUT) INTENS(HIGH) CAPS(ON) JUST(LEFT) PAD('_')
+ # TYPE(TEXT)  INTENS(LOW)  COLOR(TURQ)
+ ! TYPE(TEXT)  INTENS(HIGH) COLOR(GREEN)
+)BODY
+%---------------------- NETLOOK - Mainframe Network Lookup -------------
+%Option ===>_ZCMD                 +
++
+!  1+ Health check   - Status of all ports and connections on every LPAR
+!  2+ Lookup         - Owner and status of a port, IP, host name or job
+!  3+ Commands       - TCP/IP and VTAM display command reference
++
++  Health check LPAR%===>$Z       +  Optional - blank = every LPAR
++
++  Enter an option number and press%ENTER+.%PF3+to exit.
+#  NETLOOK only issues DISPLAY commands - nothing is changed.
+)INIT
+ .ZVARS = '(NLHLPAR)'
+ .CURSOR = ZCMD
+ &ZCMD = ' '
+)PROC
+ VER (&ZCMD,NB,LIST,1,2,3)
+)END
